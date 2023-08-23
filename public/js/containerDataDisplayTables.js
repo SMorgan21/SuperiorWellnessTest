@@ -1,13 +1,14 @@
 //set up of data table for products
 $(document).ready(function () {
     $('#containerData').DataTable({
-        
+
         // Options
         "scrolling": true,
         'ordering': true,
         "paging": true,
         "scrollY": 400,
-        "scrollX": true,
+
+
         //Ajax
         ajax: {
             url: '/showContainerData',

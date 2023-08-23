@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Container;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
 
 
 class ContainerController extends Controller
@@ -11,7 +14,7 @@ class ContainerController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -21,20 +24,20 @@ class ContainerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|Response
      */
-    public function create()
+    public function createContainer()
     {
-        //
+        return view('containerForm');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function saveContainerData(Request $request)
+    public function saveContainerData(Request $request): RedirectResponse
     {
         //Validation
         $request->validate([
@@ -78,7 +81,7 @@ class ContainerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Container $container
+     * @param Container $container
      * @return string
      */
     public function showContainerData(Container $container): string
@@ -102,11 +105,11 @@ class ContainerController extends Controller
                 'shipper_invoice_number' => $values['shipper_invoice_number'],
                 'shipping_invoice_value' => $values['shipping_invoice_value'],
                 'number_items_in_container' => $values['number_items_in_container'],
-                'editButton' => '<div class="btn-group"><a href="/editProduct/" class="btn btn-warning"> Edit</a>',
-//                'editButton' => '<div class="btn-group"><a href="/editProduct/' . $values['aw_product_id'] . '/' . $values['voucherId'] . ' " class="btn btn-warning"> Edit</a>',
-//                'deleteButton' => '<button type="button" class="btn btn-info btn-lg deleteButton"  onclick="'alert()">Click here</button>',
-//                'deleteButton' => '<a href="/deleteProduct/' . $values['aw_product_id'] . ' " class="btn btn-danger"> Delete</a> </div>'
-                'deleteButton' => '<a href="/deleteProduct/" class="btn btn-danger"> Delete</a> </div>'
+
+                //Edit and Delete Buttons
+                'editButton' => '<div class="btn-group"><a href="/editContainer/' . $values['id'] .' " class="btn btn-warning"> Edit</a>',
+                'deleteButton' => '<a href="/deleteContainer/' . $values['id'] . ' "  class="btn btn-danger" onclick="return checkDelete()"> Delete</a> </div>'
+
 
             );
         }
@@ -117,34 +120,87 @@ class ContainerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Container $container
-     * @return \Illuminate\Http\Response
+     * @param integer $containerId
+     * @return View
      */
-    public function edit(Container $container)
+    public function editContainer(int $containerId): View
     {
-        //
+        //Unique container data from db using the container id
+        $containerData = Container::where('id', $containerId)->first();
+        return view('editContainer', compact('containerData'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Container $container
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Container $container
+     * @return RedirectResponse
      */
-    public function update(Request $request, Container $container)
+    public function updateContainerData(Request $request, Container $container): RedirectResponse
     {
-        //
+        //Validation
+        $request->validate([
+            'containerNumber' => 'required',
+            'containerFinalDestination' => 'required',
+            'portDueDate' => 'required',
+            'warehouseDueDate' => 'required',
+            'shipperReferenceNumber' => 'required',
+            'shipperInvoiceNumber' => 'required',
+            'shippingInvoiceValue' => 'required',
+            'amountOfItemsInContainer' => 'required|numeric',
+        ]);
+
+
+        //Getting Data from the request
+        $containerID = $request->containerId;
+        $containerNumber = $request->containerNumber;
+        $containerFinalDestination = $request->containerFinalDestination;
+        $portDueDate = $request->portDueDate;
+        $warehouseDueDate = $request->warehouseDueDate;
+        $shipperReferenceNumber = $request->shipperReferenceNumber;
+        $shipperInvoiceNumber = $request->shipperInvoiceNumber;
+        $shippingInvoiceValue = $request->shippingInvoiceValue;
+        $amountOfItemsInContainer = $request->amountOfItemsInContainer;
+
+        //Saving the new product
+        $newContainer = new Container();
+        $newContainer->container_number = $containerNumber;
+        $newContainer->container_final_destination = $containerFinalDestination;
+        $newContainer->port_due_date = $portDueDate;
+        $newContainer->warehouse_due_date = $warehouseDueDate;
+        $newContainer->shipper_reference_number = $shipperReferenceNumber;
+        $newContainer->shipper_invoice_number = $shipperInvoiceNumber;
+        $newContainer->shipping_invoice_value = $shippingInvoiceValue;
+        $newContainer->number_items_in_container = $amountOfItemsInContainer;
+
+        $newContainer->save();
+//        $container::where('id', '=', $containerID)->update([
+//            'container_number' => $containerNumber,
+//            'container_final_destination' => $containerFinalDestination,
+//            'port_due_date' =>$portDueDate,
+//            'warehouse_due_date' => $warehouseDueDate,
+//            'shipper_reference_number' =>$shipperReferenceNumber,
+//            'shipper_invoice_number' => $shipperInvoiceNumber,
+//            'shipping_invoice_value' => $shippingInvoiceValue,
+//            'number_items_in_container' => $amountOfItemsInContainer,
+//        ]);
+
+
+        return redirect()->back()->with('success', $containerNumber . ' has been updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Container $container
-     * @return \Illuminate\Http\Response
+     * @param Container $container
+     * @param integer $containerId
+     * @return RedirectResponse
      */
-    public function destroy(Container $container)
+    public function deleteContainer(Container $container, int $containerId): RedirectResponse
     {
-        //
+        $container::where('id', '=', $containerId)->delete();
+
+        return redirect()->back()->with('success', ' Product deleted successfully');
     }
 }

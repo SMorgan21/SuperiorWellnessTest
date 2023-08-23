@@ -18,17 +18,18 @@
                                 {{\Illuminate\Support\Facades\Session::get('success')}}
                             </div>
                         @endif
-                        <form method="post" action='{{url('saveContainerData')}}' id="addContainerData">
+                        <form method="post" action='{{url('updateContainerData')}}' id="updateContainerData">
                             @csrf
                             <div class="form-group">
                                 <div class="row pb-3">
                                     <div class="col-sm-12 col-lg-6 pb-3">
+                                        <input type="hidden" name="containerId" value='{{$containerData->id}}'>
                                         <label for="containerNumber">Container Number</label>
                                         <input type="text" class="form-control"
                                                pattern="^([A-Z a-z]{3})(U|J|Z|u|j|)(\d{6})(\d{1})$"
                                                name="containerNumber"
                                                placeholder="Enter Container Number (to ISO 6346 standard)"
-                                               maxlength="11">
+                                               maxlength="11" value="{{$containerData->container_number}}">
                                         <small id="containerNumberHelp" class="form-text text-muted">The container
                                             number MUST
                                             be
@@ -47,7 +48,7 @@
                                         <label for="containerFinalDestination">Container Final Destination</label>
                                         <input type="text" class="form-control" id="containerFinalDestination"
                                                name="containerFinalDestination"
-                                               placeholder="Enter Container Final Destination">
+                                               placeholder="Enter Container Final Destination" value="{{$containerData->container_final_destination}}">
                                         @error('containerFinalDestination')
                                         <div class="alert alert-danger" role="alert">
                                             {{$message}}
@@ -59,7 +60,7 @@
                                     <div class="col-sm-12 col-lg-6 pb-3">
                                         <label for="portDueDate">Port Due Date</label>
                                         <input type="date" class="form-control" id="portDueDate" name="portDueDate"
-                                              min="" placeholder="Enter Port Due Date">
+                                               min="" placeholder="Enter Port Due Date" value="{{$containerData->port_due_date}}">
                                         @error('portDueDate')
                                         <div class="alert alert-danger" role="alert">
                                             {{$message}}
@@ -70,7 +71,7 @@
                                         <label for="warehouseDueDate">Warehouse Due Date</label>
                                         <input type="date" class="form-control" id="warehouseDueDate"
                                                name="warehouseDueDate"
-                                               placeholder="Enter Warehouse Due Date">
+                                               placeholder="Enter Warehouse Due Date" value="{{$containerData->warehouse_due_date}}">
                                         @error('warehouseDueDate')
                                         <div class="alert alert-danger" role="alert">
                                             {{$message}}
@@ -83,7 +84,7 @@
                                         <label for="shipperReferenceNumber">Shipper Reference Number</label>
                                         <input type="number" class="form-control" id="shipperReferenceNumber"
                                                name="shipperReferenceNumber"
-                                               placeholder="Enter Shipper Reference Number">
+                                               placeholder="Enter Shipper Reference Number" value="{{$containerData->shipper_reference_number}}">
                                         @error('shipperReferenceNumber')
                                         <div class="alert alert-danger" role="alert">
                                             {{$message}}
@@ -94,7 +95,7 @@
                                         <label for="shipperInvoiceNumber">Shipper Invoice Number</label>
                                         <input type="number" class="form-control" id="shipperInvoiceNumber"
                                                name="shipperInvoiceNumber"
-                                               placeholder="Enter Shipper Invoice Number">
+                                               placeholder="Enter Shipper Invoice Number" value="{{$containerData->shipper_invoice_number}}"
                                         @error('shipperInvoiceNumber')
                                         <div class="alert alert-danger" role="alert">
                                             {{$message}}
@@ -108,7 +109,7 @@
                                         <input type="number" class="form-control" id="shippingInvoiceValue"
                                                name="shippingInvoiceValue"
                                                placeholder="Enter Shipping Invoice Value" min="0"
-                                               step=".01">
+                                               step=".01" value="{{$containerData->shipping_invoice_value}}">
                                         @error('shippingInvoiceValue')
                                         <div class="alert alert-danger" role="alert">
                                             {{$message}}
@@ -119,7 +120,7 @@
                                         <label for="amountOfItemsInContainer">Amount of items in container</label>
                                         <input type="number" class="form-control" id="amountOfItemsInContainer"
                                                name="amountOfItemsInContainer"
-                                               placeholder="Enter Amount of items in container">
+                                               placeholder="Enter Amount of items in container" value="{{$containerData->number_items_in_container}}">
                                         @error('amountOfItemsInContainer')
                                         <div class="alert alert-danger" role="alert">
                                             {{$message}}
@@ -138,8 +139,8 @@
         </div>
     </div>
 
-
 @endsection
+
 @push('scripts')
     <script src="{{ URL::asset('/js/datePickerRestriction.js') }}"></script>
 @endpush

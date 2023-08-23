@@ -11,25 +11,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">ABOUT <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{{route('containerForm')}}">ADD CONTAINER DATA</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">OUR BRANDS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">WELLNESS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">NEWS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">CAREERS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">BECOME A PARTNER</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">CONTACT US</a>
+                        <a class="nav-link" href="{{route('containerData')}}">VIEW CONTAINER DATA</a>
                     </li>
                 </ul>
             </div>

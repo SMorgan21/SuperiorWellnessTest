@@ -31,7 +31,7 @@ class ContainerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function saveContainerData(Request $request)
@@ -71,25 +71,53 @@ class ContainerController extends Controller
 
         $newContainer->save();
 
-        return redirect()->back()->with('success', 'Container Number '. $containerNumber . ' has been saved');
+        return redirect()->back()->with('success', 'Container Number ' . $containerNumber . ' has been saved');
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Container  $container
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Container $container
+     * @return string
      */
-    public function show(Container $container)
+    public function showContainerData(Container $container): string
     {
-        //
+
+        //Getting data for all container
+        $allContainers = $container::select('*')
+            ->get()
+            ->toArray();
+
+        $containerData = array();
+
+        foreach ($allContainers as $product => $values) {
+            $containerData[] = array(
+                'container_id' => $values['id'],
+                'container_number' => $values['container_number'],
+                'container_final_destination' => $values['container_final_destination'],
+                'port_due_date' => $values['port_due_date'],
+                'warehouse_due_date' => $values['warehouse_due_date'],
+                'shipper_reference_number' => $values['shipper_reference_number'],
+                'shipper_invoice_number' => $values['shipper_invoice_number'],
+                'shipping_invoice_value' => $values['shipping_invoice_value'],
+                'number_items_in_container' => $values['number_items_in_container'],
+                'editButton' => '<div class="btn-group"><a href="/editProduct/" class="btn btn-warning"> Edit</a>',
+//                'editButton' => '<div class="btn-group"><a href="/editProduct/' . $values['aw_product_id'] . '/' . $values['voucherId'] . ' " class="btn btn-warning"> Edit</a>',
+//                'deleteButton' => '<button type="button" class="btn btn-info btn-lg deleteButton"  onclick="'alert()">Click here</button>',
+//                'deleteButton' => '<a href="/deleteProduct/' . $values['aw_product_id'] . ' " class="btn btn-danger"> Delete</a> </div>'
+                'deleteButton' => '<a href="/deleteProduct/" class="btn btn-danger"> Delete</a> </div>'
+
+            );
+        }
+
+        return json_encode($containerData);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Container  $container
+     * @param \App\Models\Container $container
      * @return \Illuminate\Http\Response
      */
     public function edit(Container $container)
@@ -100,8 +128,8 @@ class ContainerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Container  $container
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Container $container
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Container $container)
@@ -112,7 +140,7 @@ class ContainerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Container  $container
+     * @param \App\Models\Container $container
      * @return \Illuminate\Http\Response
      */
     public function destroy(Container $container)

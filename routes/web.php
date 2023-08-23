@@ -21,7 +21,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('containerForm');
-});
+})->name('containerForm');
+//Route::get('/containerForm', function () {
+//    return view('containerForm');
+//})->name('containerForm');
+
+Route::get('/containerData', function () {
+    return view('containerData');
+})->name('containerData');
 
 //Save Product
 Route::post('/saveContainerData' , [\App\Http\Controllers\ContainerController::class, 'saveContainerData'])->name('saveContainerData');
+Route::get('/showContainerData' , [\App\Http\Controllers\ContainerController::class, 'showContainerData'])->name('showContainerData');
+

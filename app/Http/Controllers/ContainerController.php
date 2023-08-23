@@ -63,7 +63,7 @@ class ContainerController extends Controller
 
         //Saving the new product
         $newContainer = new Container();
-        $newContainer->container_number = $containerNumber;
+        $newContainer->container_number = strtoupper($containerNumber);
         $newContainer->container_final_destination = $containerFinalDestination;
         $newContainer->port_due_date = $portDueDate;
         $newContainer->warehouse_due_date = $warehouseDueDate;
@@ -164,7 +164,7 @@ class ContainerController extends Controller
         $amountOfItemsInContainer = $request->amountOfItemsInContainer;
 
         $container::where('id', '=', $containerID)->update([
-            'container_number' => $containerNumber,
+            'container_number' => strtoupper($containerNumber),
             'container_final_destination' => $containerFinalDestination,
             'port_due_date' =>$portDueDate,
             'warehouse_due_date' => $warehouseDueDate,

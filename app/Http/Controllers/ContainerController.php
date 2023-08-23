@@ -163,28 +163,16 @@ class ContainerController extends Controller
         $shippingInvoiceValue = $request->shippingInvoiceValue;
         $amountOfItemsInContainer = $request->amountOfItemsInContainer;
 
-        //Saving the new product
-        $newContainer = new Container();
-        $newContainer->container_number = $containerNumber;
-        $newContainer->container_final_destination = $containerFinalDestination;
-        $newContainer->port_due_date = $portDueDate;
-        $newContainer->warehouse_due_date = $warehouseDueDate;
-        $newContainer->shipper_reference_number = $shipperReferenceNumber;
-        $newContainer->shipper_invoice_number = $shipperInvoiceNumber;
-        $newContainer->shipping_invoice_value = $shippingInvoiceValue;
-        $newContainer->number_items_in_container = $amountOfItemsInContainer;
-
-        $newContainer->save();
-//        $container::where('id', '=', $containerID)->update([
-//            'container_number' => $containerNumber,
-//            'container_final_destination' => $containerFinalDestination,
-//            'port_due_date' =>$portDueDate,
-//            'warehouse_due_date' => $warehouseDueDate,
-//            'shipper_reference_number' =>$shipperReferenceNumber,
-//            'shipper_invoice_number' => $shipperInvoiceNumber,
-//            'shipping_invoice_value' => $shippingInvoiceValue,
-//            'number_items_in_container' => $amountOfItemsInContainer,
-//        ]);
+        $container::where('id', '=', $containerID)->update([
+            'container_number' => $containerNumber,
+            'container_final_destination' => $containerFinalDestination,
+            'port_due_date' =>$portDueDate,
+            'warehouse_due_date' => $warehouseDueDate,
+            'shipper_reference_number' =>$shipperReferenceNumber,
+            'shipper_invoice_number' => $shipperInvoiceNumber,
+            'shipping_invoice_value' => $shippingInvoiceValue,
+            'number_items_in_container' => $amountOfItemsInContainer,
+        ]);
 
 
         return redirect()->back()->with('success', $containerNumber . ' has been updated successfully');

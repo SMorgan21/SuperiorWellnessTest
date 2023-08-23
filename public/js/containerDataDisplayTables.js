@@ -3,10 +3,12 @@ $(document).ready(function () {
     $('#containerData').DataTable({
 
         // Options
-        "scrolling": true,
-        'ordering': true,
-        "paging": true,
-        "scrollY": 400,
+        scrolling: true,
+        ordering: true,
+        paging: true,
+        scrollY: 400,
+        responsive: true,
+        scrollX: true,
 
 
         //Ajax

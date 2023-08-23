@@ -16,6 +16,10 @@
                         @if(\Illuminate\Support\Facades\Session::has('success'))
                             <div class="alert alert-success" role="alert">
                                 {{\Illuminate\Support\Facades\Session::get('success')}}
+                                <br>
+                                <br>
+                                <br>
+                                <a href='{{url('containerData')}}' class="btn btn-primary"> View Container Data</a>
                             </div>
                         @endif
                         <form method="post" action='{{url('saveContainerData')}}' id="addContainerData">

@@ -71,7 +71,7 @@ class ContainerController extends Controller
 
         $newContainer->save();
 
-        return redirect()->back()->with('success', $containerNumber . ' saved');
+        return redirect()->back()->with('success', 'Container Number '. $containerNumber . ' has been saved');
 
     }
 

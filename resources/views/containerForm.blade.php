@@ -10,13 +10,20 @@
         <h1 class="mt-5 mb-2 text-gray-800">A form to add shipping container data</h1>
 
         <div class="containerInfoForm pt-5">
+
+            @if(\Illuminate\Support\Facades\Session::has('success'))
+                <div class="alert alert-success" role="alert">
+                    {{\Illuminate\Support\Facades\Session::get('success')}}
+                </div>
+            @endif
+
             <form method="post" action='{{url('saveContainerData')}}' id="addContainerData">
                 @csrf
                 <div class="form-group">
                     <label for="containerNumber">Container Number</label>
                     <input type="text" class="form-control" pattern="^([A-Z a-z]{3})(U|J|Z|u|j|)(\d{6})(\d{1})$" name="containerNumber"  placeholder="Enter Container Number (to ISO 6346 standard)"
                            maxlength="11">
-                    <small id="containerNumberHelp" class="form-text text-muted">The container number MUST be formatted to ISO 6346 standard.</small>
+                    <small id="containerNumberHelp" class="form-text text-muted">The container number MUST be formatted to ISO 6346 standard e.g. QSWU1231231</small>
                     @error('containerNumber')
                     <div class="alert alert-danger" role="alert">
                         {{$message}}
@@ -76,7 +83,8 @@
                 <div class="form-group">
                     <label for="shippingInvoiceValue">Shipping Invoice Value</label>
                     <input type="number" class="form-control" id="shippingInvoiceValue" name="shippingInvoiceValue"
-                           placeholder="Enter Shipping Invoice Value">
+                           placeholder="Enter Shipping Invoice Value" min="0" max="9999"
+                           step=".01">
                     @error('shippingInvoiceValue')
                     <div class="alert alert-danger" role="alert">
                         {{$message}}

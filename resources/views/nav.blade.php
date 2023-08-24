@@ -2,7 +2,7 @@
     <div class="container">
         <nav class="navbar navbar-expand-lg pb-5">
             <a class="navbar-brand" href="https://superiorwellness.co.uk" rel="home">
-                <img src="{{ URL::asset('/images/mainLogo.png') }}" alt="mainLogo">
+                <img src="{{ URL::asset('/images/mainLogo.webp') }}" alt="mainLogo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"

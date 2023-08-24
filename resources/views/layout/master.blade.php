@@ -20,6 +20,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
     <title>@yield('pageTitle')</title>
+    <link rel="icon" type="image/x-icon" href="https://superiorwellness.co.uk/wp-content/uploads/2021/02/cropped-sw-favicon-32x32.png">
 
 </head>
 <body>

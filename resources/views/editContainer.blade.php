@@ -94,7 +94,7 @@
                                 <div class="col-sm-12 col-lg-6 pb-3">
                                     <label for="shipperReferenceNumber">Shipper Reference Number</label>
                                     <input type="number" class="form-control" id="shipperReferenceNumber"
-                                           name="shipperReferenceNumber"
+                                           name="shipperReferenceNumber" maxlength="11"
                                            placeholder="Enter Shipper Reference Number"
                                            value="{{$containerData->shipper_reference_number}}">
                                     {{-- Error message, will display if nothing has been input--}}
@@ -108,7 +108,7 @@
                                     <label for="shipperInvoiceNumber">Shipper Invoice Number</label>
                                     <input type="number" class="form-control" id="shipperInvoiceNumber"
                                            name="shipperInvoiceNumber"
-                                           placeholder="Enter Shipper Invoice Number"
+                                           placeholder="Enter Shipper Invoice Number" maxlength="11"
                                            value="{{$containerData->shipper_invoice_number}}">
                                     {{-- Error message, will display if nothing has been input--}}
                                     @error('shipperInvoiceNumber')
@@ -123,7 +123,7 @@
                                     <label for="shippingInvoiceValue">Shipping Invoice Value</label>
                                     <input type="number" class="form-control" id="shippingInvoiceValue"
                                            name="shippingInvoiceValue"
-                                           placeholder="Enter Shipping Invoice Value" min="0"
+                                           placeholder="Enter Shipping Invoice Value" min="0" max="9999999"
                                            step=".01" value="{{$containerData->shipping_invoice_value}}">
                                     {{-- Error message, will display if nothing has been input--}}
                                     @error('shippingInvoiceValue')
@@ -136,7 +136,7 @@
                                     <label for="amountOfItemsInContainer">Amount of items in container</label>
                                     <input type="number" class="form-control" id="amountOfItemsInContainer"
                                            name="amountOfItemsInContainer"
-                                           placeholder="Enter Amount of items in container"
+                                           placeholder="Enter Amount of items in container" max="9999999"
                                            value="{{$containerData->number_items_in_container}}">
                                     {{-- Error message, will display if nothing has been input--}}
                                     @error('amountOfItemsInContainer')

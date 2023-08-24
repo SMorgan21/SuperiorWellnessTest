@@ -9,6 +9,7 @@ $(document).ready(function () {
         scrollY: 400,
         responsive: true,
         scrollX: true,
+        scrolly: true,
 
 
         //Ajax

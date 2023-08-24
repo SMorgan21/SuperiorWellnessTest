@@ -5,9 +5,11 @@
 @include('nav')
 
 @section('main')
+    {{--  Begining of display  --}}
     <div class="container">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
+                {{-- Page title --}}
                 <h1 class="m-0 font-weight-bold text-dark">Add shipping container details</h1>
             </div>
             <div class="card">
@@ -21,28 +23,27 @@
                                     <br>
                                     <br>
                                     <br>
+                                    {{-- Link to data table --}}
                                     <a href='{{url('containerData')}}' class="btn btn-primary"> View Container Data</a>
                                 </div>
                             @endif
+                                {{-- Beginning of form --}}
                             <form method="post" action='{{url('saveContainerData')}}' id="addContainerData">
                                 @csrf
                                 <div class="form-group">
                                     <div class="row pb-3">
                                         <div class="col-sm-12 col-lg-6 pb-3">
                                             <label for="containerNumber">Container Number</label>
+                                            {{-- Input for the container number, using regex to validate the input to the iso 6346 standard--}}
                                             <input type="text" class="form-control"
                                                    pattern="^([A-Z a-z]{3})(U|J|Z|u|j|)(\d{6})(\d{1})$"
                                                    name="containerNumber"
                                                    placeholder="Enter Container Number (to ISO 6346 standard)"
-                                                   maxlength="11">
-                                            <small id="containerNumberHelp" class="form-text text-muted">The container
-                                                number MUST
-                                                be
-                                                formatted to
-                                                <mark>ISO 6346</mark>
-                                                standard e.g.
-                                                <mark>QSWU1231231</mark>
+                                                   maxlength="11" id="containerNumber">
+                                            {{-- Helper Text--}}
+                                            <small id="containerNumberHelp" class="form-text text-muted">The container number MUST be formatted to <mark>ISO 6346</mark> standard e.g. <mark>QSWU1231231</mark>
                                             </small>
+                                            {{-- Error message, will display if nothing has been input--}}
                                             @error('containerNumber')
                                             <div class="alert alert-danger" role="alert">
                                                 {{$message}}
@@ -54,6 +55,7 @@
                                             <input type="text" class="form-control" id="containerFinalDestination"
                                                    name="containerFinalDestination"
                                                    placeholder="Enter Container Final Destination">
+                                            {{-- Error message, will display if nothing has been input--}}
                                             @error('containerFinalDestination')
                                             <div class="alert alert-danger" role="alert">
                                                 {{$message}}
@@ -66,6 +68,7 @@
                                             <label for="portDueDate">Port Due Date</label>
                                             <input type="date" class="form-control" id="portDueDate" name="portDueDate"
                                                    min="" placeholder="Enter Port Due Date">
+                                            {{-- Error message, will display if nothing has been input--}}
                                             @error('portDueDate')
                                             <div class="alert alert-danger" role="alert">
                                                 {{$message}}
@@ -77,6 +80,7 @@
                                             <input type="date" class="form-control" id="warehouseDueDate"
                                                    name="warehouseDueDate"
                                                    placeholder="Enter Warehouse Due Date">
+                                            {{-- Error message, will display if nothing has been input--}}
                                             @error('warehouseDueDate')
                                             <div class="alert alert-danger" role="alert">
                                                 {{$message}}
@@ -90,6 +94,7 @@
                                             <input type="number" class="form-control" id="shipperReferenceNumber"
                                                    name="shipperReferenceNumber"
                                                    placeholder="Enter Shipper Reference Number">
+                                            {{-- Error message, will display if nothing has been input--}}
                                             @error('shipperReferenceNumber')
                                             <div class="alert alert-danger" role="alert">
                                                 {{$message}}
@@ -101,6 +106,7 @@
                                             <input type="number" class="form-control" id="shipperInvoiceNumber"
                                                    name="shipperInvoiceNumber"
                                                    placeholder="Enter Shipper Invoice Number">
+                                            {{-- Error message, will display if nothing has been input--}}
                                             @error('shipperInvoiceNumber')
                                             <div class="alert alert-danger" role="alert">
                                                 {{$message}}
@@ -115,6 +121,7 @@
                                                    name="shippingInvoiceValue"
                                                    placeholder="Enter Shipping Invoice Value" min="0"
                                                    step=".01">
+                                            {{-- Error message, will display if nothing has been input--}}
                                             @error('shippingInvoiceValue')
                                             <div class="alert alert-danger" role="alert">
                                                 {{$message}}
@@ -126,6 +133,7 @@
                                             <input type="number" class="form-control" id="amountOfItemsInContainer"
                                                    name="amountOfItemsInContainer"
                                                    placeholder="Enter Amount of items in container">
+                                            {{-- Error message, will display if nothing has been input--}}
                                             @error('amountOfItemsInContainer')
                                             <div class="alert alert-danger" role="alert">
                                                 {{$message}}
@@ -134,6 +142,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- Submit button--}}
                                 <div class="pb-3">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -146,6 +155,7 @@
     </div>
 
 @endsection
+{{-- Script to restrict the date picker--}}
 @push('scripts')
     <script src="{{ URL::asset('/js/datePickerRestriction.js') }}"></script>
 @endpush

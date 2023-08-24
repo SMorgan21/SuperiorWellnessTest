@@ -23,8 +23,9 @@
 
 </head>
 <body>
-<!-- Header section -->
+<!-- Nav section -->
 @yield('nav')
+<!-- Main content section -->
 @yield('main')
 
 <!-- Bootstrap -->
